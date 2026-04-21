@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detective Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<h2 id="sceneTitle"></h2>
+  
+  <div id="sceneParalax">
+  <div id="modal-container">
+		<img id="modal-img" src="" alt="" style="width: 80px; height: 80px; margin-right: 20px; float: left; display: none;">
+		<div id="modal-name"></div> <!-- novo elemento para o nome -->
+		<div id="modal-text" style="margin-top:10px;"></div>
+	</div>
+  <div id="fadeOverlay"></div>
+  <img id="bg1" src="assets/fundoParalax.jpg" alt="">
+  <img id="bg2" src="assets/fundoParalax.jpg" alt="">
+  <div id="fuscaAnimado"></div>
+  <img id="chuva" src="assets/rain2.gif">
+</div>
+</div>
+
+
+<script>
+
+
+function iniciarParallax() {
+  const bg1 = document.getElementById("bg1");
+  const bg2 = document.getElementById("bg2");
+
+  const larguraFundo = 2667;
+  const velocidade = 2;
+
+  let x1 = 0;
+  let x2 = -larguraFundo;
+
+  function animar() {
+    x1 += velocidade;
+    x2 += velocidade;
+
+    if (x1 >= larguraFundo) {
+      x1 = x2 - larguraFundo;
+    }
+
+    if (x2 >= larguraFundo) {
+      x2 = x1 - larguraFundo;
+    }
+
+    bg1.style.left = `${x1}px`;
+    bg2.style.left = `${x2}px`;
+
+    requestAnimationFrame(animar);
+  }
+
+  animar();
+}
+
+let intervaloFusca = null;
+let dialogoAtivo = false;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function iniciarAnimacaoSpriteFusca() {
+  const fusca = document.getElementById("fuscaAnimado");
+
+  const frameWidth = 334;
+  const frameHeight = 168;
+  const totalFrames = 10;          // ajuste para a tua sprite sheet
+  const frameDuration = 100;      // tempo de cada frame
+  const escala = 1;               // pode mudar se quiser ampliar
+
+  let frameAtual = 0;
+
+  fusca.style.width = `${frameWidth * escala}px`;
+  fusca.style.height = `${frameHeight * escala}px`;
+  fusca.style.backgroundSize = `${frameWidth * totalFrames * escala}px ${frameHeight * escala}px`;
+
+  pararAnimacaoSpriteFusca();
+
+  function atualizarFrame() {
+    const posX = -(frameAtual * frameWidth * escala);
+    fusca.style.backgroundPosition = `${posX}px 0px`;
+    frameAtual = (frameAtual + 1) % totalFrames;
+  }
+
+  atualizarFrame();
+  intervaloFusca = setInterval(atualizarFrame, frameDuration);
+}
+
+function pararAnimacaoSpriteFusca() {
+  if (intervaloFusca !== null) {
+    clearInterval(intervaloFusca);
+    intervaloFusca = null;
+  }
+}
+
+function fadeInCena(duracao = 1500) {
+  return new Promise(resolve => {
+    const fade = document.getElementById("fadeOverlay");
+    let inicio = null;
+
+    function animar(timestamp) {
+      if (!inicio) inicio = timestamp;
+      const progresso = Math.min((timestamp - inicio) / duracao, 1);
+
+      fade.style.opacity = 1 - progresso;
+
+      if (progresso < 1) {
+        requestAnimationFrame(animar);
+      } else {
+        fade.style.opacity = 0;
+        resolve();
+      }
+    }
+
+    fade.style.opacity = 1;
+    requestAnimationFrame(animar);
+  });
+}
+
+function falarSequencial(listaFalas, nome = "Inspetor Zanko", imagem = "assets/zankoPH.png", cor = "rgb(255,200,150)") {
+  return new Promise(resolve => {
+    const modal = document.getElementById("modal-container");
+    const modalImg = document.getElementById("modal-img");
+    const modalName = document.getElementById("modal-name");
+    const modalText = document.getElementById("modal-text");
+
+    let indice = 0;
+    dialogoAtivo = true;
+
+    function renderizar() {
+      modalName.innerText = nome;
+      modalText.innerText = listaFalas[indice];
+      modalName.style.color = cor;
+      modalText.style.color = cor;
+      modalImg.src = imagem;
+      modalImg.style.display = "block";
+      modal.style.display = "block";
+    }
+
+    function avancar() {
+      if (!dialogoAtivo) return;
+
+      indice++;
+
+      if (indice >= listaFalas.length) {
+        dialogoAtivo = false;
+        modal.style.display = "none";
+        document.removeEventListener("click", avancar);
+        resolve();
+        return;
+      }
+
+      renderizar();
+    }
+
+    renderizar();
+
+    setTimeout(() => {
+      document.addEventListener("click", avancar);
+    }, 200);
+  });
+}
+
+function moverFuscaComAceleracao({
+  xInicial,
+  xFinal,
+  top = 290,
+  velocidadeInicial = 2,
+  velocidadeMaxima = 10,
+  aceleracao = 0.15,
+  desacelerarNoFinal = false
+}) {
+  return new Promise(resolve => {
+    const fusca = document.getElementById("fuscaAnimado");
+
+    let x = xInicial;
+    let velocidade = velocidadeInicial;
+
+    fusca.style.top = `${top}px`;
+    fusca.style.left = `${Math.round(x)}px`;
+
+    function animar() {
+      const distanciaRestante = xFinal - x;
+
+      if (desacelerarNoFinal) {
+        const distanciaAbs = Math.abs(distanciaRestante);
+
+        if (distanciaAbs < 250) {
+          velocidade = Math.max(1.2, velocidade * 0.97);
+        } else {
+          velocidade = Math.min(velocidade + aceleracao, velocidadeMaxima);
+        }
+      } else {
+        velocidade = Math.min(velocidade + aceleracao, velocidadeMaxima);
+      }
+
+      if (x < xFinal) {
+        x += velocidade;
+        if (x >= xFinal) {
+          x = xFinal;
+        }
+      } else {
+        x -= velocidade;
+        if (x <= xFinal) {
+          x = xFinal;
+        }
+      }
+
+      fusca.style.left = `${Math.round(x)}px`;
+
+      if (x === xFinal) {
+        resolve();
+        return;
+      }
+
+      requestAnimationFrame(animar);
+    }
+
+    requestAnimationFrame(animar);
+  });
+}
+
+async function cenaFuscaZanko() {
+  iniciarParallax();
+  const fusca = document.getElementById("fuscaAnimado");
+
+  const larguraTela = 800;
+  const larguraFusca = 334;
+  const centroX = Math.round((larguraTela) / 2);
+
+  const foraDireita = 800+334;
+  const foraEsquerda = -larguraFusca - 20;
+
+  iniciarAnimacaoSpriteFusca();
+
+  // começa escondido à direita
+  fusca.style.left = `${foraDireita}px`;
+  fusca.style.top = "290px";
+
+  // fade inicial
+  await fadeInCena(1500);
+
+  // entra pela direita, acelera e desacelera até parar no centro
+  await moverFuscaComAceleracao({
+    xInicial: foraDireita,
+    xFinal: centroX,
+    top: 290,
+    velocidadeInicial: 1.5,
+    velocidadeMaxima: 7,
+    aceleracao: 0.10,
+    desacelerarNoFinal: true
+  });
+
+  // fala
+  await falarSequencial([
+    "Já é noite em Rio Grande.",
+    "Mas quando um figurão chama a polícia, a gente responde.",
+    "Esse é um dos meus primeiros casos. \nEu preciso provar o meu valor."
+  ]);
+
+  // sai acelerando para a esquerda
+  await moverFuscaComAceleracao({
+    xInicial: centroX,
+    xFinal: foraEsquerda,
+    top: 290,
+    velocidadeInicial: 2,
+    velocidadeMaxima: 10,
+    aceleracao: 0.15,
+    desacelerarNoFinal: false
+  });
+  
+  await fadeOutCena(1000);
+
+  window.location.href = "game.html";
+}
+
+function fadeOutCena(duracao = 1000) {
+  return new Promise(resolve => {
+    const fade = document.getElementById("fadeOverlay");
+    let inicio = null;
+
+    function animar(timestamp) {
+      if (!inicio) inicio = timestamp;
+      const progresso = Math.min((timestamp - inicio) / duracao, 1);
+
+      fade.style.opacity = progresso;
+
+      if (progresso < 1) {
+        requestAnimationFrame(animar);
+      } else {
+        resolve();
+      }
+    }
+
+    requestAnimationFrame(animar);
+  });
+}
+
+window.addEventListener("load", () => {
+  cenaFuscaZanko();
+});
+</script>
+</body>
+</html>

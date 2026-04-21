@@ -1,0 +1,404 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #222; /* fundo geral */
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.anim {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: cover;
+    pointer-events: none; /* evita interação */
+  }
+
+
+#game-container {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  background-color: white; /* viewport da cena */
+  overflow: hidden;
+}
+
+.hotspot {
+  position: absolute;
+  z-index: 10; /* garante que fica acima do fundo */
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.audio {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    color: yellow;
+	text-shadow:
+    -1px -1px 0 #000, /* Top-left shadow */
+    1px -1px 0 #000,  /* Top-right shadow */
+    -1px 1px 0 #000,  /* Bottom-left shadow */
+    1px 1px 0 #000;   /* Bottom-right shadow */
+    pointer-events: none; /* evita bloquear cliques */
+	z-index: 9999; /* força a ficar na frente */
+  }
+
+.hotspot-img {
+  position: relative;
+  display: inline-block; /* evita quebrar linha inteira */
+  user-select: none;
+  -webkit-user-drag: none; 
+}
+
+
+.dialogue-choice {
+ cursor: pointer;
+ margin-left: 110px;
+}
+
+#scene {
+  position: relative;
+  width: 800px;      /* ou 100% se quiser responsivo */
+  height: 500px;     /* ou defina no container pai */
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+
+#sceneParalax {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  overflow: hidden;
+  background: #000;
+}
+
+#bg1, #bg2 {
+  position: absolute;
+  top: 0;
+  width: 2667px;
+  height: 500px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 1;
+}
+
+#chuva {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 500px;
+  z-index: 3; /* 🔥 fica por cima de tudo */
+  pointer-events: none; /* importante! */
+  opacity: 0.8;
+}
+
+#fuscaAnimado {
+  position: absolute;
+  width: 334px;
+  height: 168px;
+  left: 50%;
+  top: 290px;
+  transform: translateX(-50%);
+  background-image: url("assets/fuscaAnimado.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 2;
+}
+
+#fuscaAnimadoDIR {
+  position: absolute;
+  width: 334px;
+  height: 168px;
+  left: 50%;
+  top: 290px;
+  transform: translateX(-50%);
+  background-image: url("assets/fuscaAnimado2.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 2;
+}
+
+#fadeOverlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 1;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#inventory {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 660px;
+  background: rgba(0,0,0,0);
+  padding: 5px;
+  z-index: 900; /* garante que fica acima de outros elementos */
+}
+.inventory-item {
+  pointer-events: auto; /* necessário se container usa pointer-events */
+  margin-top: 10px;
+  margin-left: 5px;
+  border-radius: 5px;   /* pode ajustar o valor (px, %, etc.) */
+  background: rgba(0,0,0,0.5);
+  cursor: grab;
+}
+
+.inventory-item:active {
+    cursor: grabbing; /* mão fechada enquanto arrasta */
+}
+
+/* Pistas topo direito */
+#clues-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.clues-icon-img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+/* Modal de conversa / descrição */
+#modal-container {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  right: 40px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: black;
+  border-radius: 5px;
+  border: 2px solid white;
+  overflow-y: auto;
+  font-size: 16px;
+  align-items: center;
+  z-index: 900;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;  
+}
+
+#modal-container img {
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#modal-name {
+  margin-top: 10px; /* distância do topo do modal */
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#clues-modal-container {
+  display: none;                 /* inicia invisível */
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  right: 50px;
+  height: 400px;                 /* altura maior */
+  background-color: rgba(0,0,0,0.8);
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;                /* cor do texto */
+  z-index: 1000;
+}
+
+#clues-modal-title {
+  margin: 0;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#clues-modal-list-container {
+  flex: 1;
+  overflow-y: auto;              /* rolagem se a lista for longa */
+}
+
+#clues-modal-list li {
+  margin-bottom: 10px;
+}
+
+/* garante que o ícone fique por cima de tudo e seja clicável */
+#clues-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;        /* 👈 ESSENCIAL */
+  gap: 10px;            /* espaço entre botões */
+  z-index: 800;
+  pointer-events: auto;
+}
+
+
+.clues-btn {
+  width: 50px;
+  height: 50px;
+  background: url("assets/icon-clue.png") no-repeat center center;
+  background-size: contain;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background-color: transparent;
+  pointer-events: auto;   /* importante */
+}
+
+.save-btn {
+  width: 50px;
+  height: 50px;
+  background: url("assets/icon-save.png") no-repeat center center;
+  background-size: contain;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+
+/* overlay para transição */
+#scene-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black; /* ou outra cor/efeito */
+  opacity: 0;
+  pointer-events: none; /* não bloqueia cliques */
+  transition: opacity 0.8s ease-in-out;
+  z-index: 9998;
+}
+#save-modal-container {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  padding: 20px;
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid #888;
+  color: #fff;
+}
+
+#save-modal-title {
+  margin-top: 0;
+  text-align: center;
+}
+
+#save-modal-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.slot-actions {
+	position:absolute;
+	left:61%;
+}
+
+.save-slot {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #666;
+  background: rgba(255,255,255,0.05);
+}
+
+.slot-label {
+  font-weight: bold;
+}
+
+.slot-status {
+  font-weight: bold;
+}
+
+.slot-action-btn {
+  min-width: 88px;
+  padding: 8px 10px;
+  border: 1px solid #666;
+  background: #7c7c7c;
+  color: #fff;
+  cursor: pointer;
+
+  /* 🔥 fonte aplicada */
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+}
+
+.slot-occupied .slot-status {
+  color: #8fd18f;
+}
+
+.slot-empty .slot-status {
+  color: #d6a0a0;
+}
+
+.save-message {
+  color: #ccc;
+}
+
+#close-save-modal {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+#save-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  z-index: 1200;
+}
+
+#save-modal-message {
+  margin-top: 15px;
+  min-height: 20px;
+  text-align: center;
+  font-weight: bold; 
+}
+
+.hidden {
+  display: none;
+}

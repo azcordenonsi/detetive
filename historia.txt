@@ -1,0 +1,369 @@
+----------------------
+MEIRELLES - ESCRITÓRIO
+
+- Dr. Meirelles, eu presumo?
+- Sim, sou eu mesmo.
+- O que aconteceu?
+- Acredito que alguém roubou o meu diamante 'Olho de Odin'!
+- Quando o viu pela última vez?
+- 🔍 Esse cofre funciona com três chaves, que levo sempre comigo. Depois do almoço, me atrasei para um compromisso que tinha no clube. \nSaí apressado e deixei o diamante e as chaves na escrivaninha. [PistaESC.3C]
+- Isso não foi muito prudente...
+- Nem me diga! Quando voltei, ao as 18:00, a gaveta do criado-mudo estava aberta e as chaves sumiram!
+- 🔍 Então, as chaves sumiram hoje pela tarde? [PistaESC.RB]
+- Sim, o cofre estava fechado e trancado antes disso.
+- Vou investigar o caso.
+- Ótimo! É para isso que pago meus impostos, não?
+
+
+PistaLAB.PLA2 - Falta parte dos Planos...
+- Conversei com o Dr. Marcos.
+- Ele é um bom homem. Trabalhamos em vários projetos juntos.
+- Ele me disse algo engraçado...
+- Estranho. Nunca o vi como um piadista.
+- A piada, no caso, é que parte dos planos da nova refinaria sumiram. \nSabe de algo sobre o assunto?
+- Não.
+- Ele disse que o senhor era o responsável por esses planos.
+- Isso está correto. Assim como é incorreto demorar tanto para servir o jantar.
+- Mesmo assim, não sabe o que aconteceu com eles.
+- As coisas estão desaparecendo da minha casa. Achei que fosse por isso que lhe chamamos.
+- O senhor retirou os planos do cofre do Laboratório?
+- Não. Eu estive fora durante a tarde inteira, lembra-se?
+
+
+PistaLAB.OLHO - Encontrei o Olho de Odin  
+- Tenho boas notícias.
+- É o que dizem do Inferno.
+- Achei que eram boas intenções que vinham da Terra dos Pés Juntos.
+- Que é a quase a mesma coisa.
+- Achei o 'Olho de Odin'.
+- Maravilha! Onde está ele?
+- Por enquanto, vou mantê-lo comigo. Ele faz parte da investigação.
+- Pegou o culpado?
+- Ainda estamos trabalhando nisso. O diamante foi descartado, na verdade.
+- Ele vale uma fortuna!
+- Sei disso. O que levanta algumas ideias interessantes. Por que alguém descartaria um diamante tão valioso?
+- Consciência pesada?
+- É uma possibilidade... Mas não tenho encontrado muitos ladrões com consciência por aí. Vou continuar investigando.
+- Tudo bem.
+
+PistaLAB.GRG
+- Sabe algo sobre essas fotografias?
+- 🔍 O terreno onde vai ser construída a refinaria é do General. [ PistaESC.TER ]
+- Ele já sabia disso antes de comprar a área?
+- Nesses tempos bicudos, esse é o tipo de pergunta perigosa que tento evitar, Inspetor.
+- Vou continuar investigando.
+- E eu vou esperar o jantar.
+libera --> PistaESC.TER
+
+PistaMAR.LUC
+- Soube que você é amigo de longa data da família de Lúcia.
+- As fofocas são mais rápidas nessa casa do que o jantar, que já está atrasado.
+- O que você fez por ela?
+- 🔍 Eu paguei seus estudos após o seu pai falecer. [ PistaESC.EST ]
+- Como ele morreu?
+- 🔍 Em um acidente. [ PistaESC.ACI ]
+
+----------------
+LÚCIA - Quarto Azul 
+requireStates: luciaComChapeu
+- Então, o que sabe sobre o diamante?
+- Só sei que o Dr. Meirelles adora exibi-lo por aí.
+- Ele estava no seu escritório.
+- E eu estava procurando o meu chapéu. Uma mulher que se preze não anda por aí sem o seu chapéu.
+- Viu alguém durante a tarde?
+- Carolina andando de um lado para o outro, levando bebidas.
+- Falou com ela?
+- Não me dirijo a empregadas se não tiver nada para falar com elas, Inspetor. Fui muito bem educaca.
+- Um mulher bela, recatada e do lar...
+- Uma descrição apropriada.
+- Por que está aqui?
+- 🔍 Sou amiga de longa data do Dr. Meirelles. Ele pagou os meus estudos após o meu pai morrer. [ PistaLUC.EST ]
+- Eu sinto muito.
+- Eu também, Inspetor.
+
+requireStates: documentosAcidente
+Descobri documentos Acidente [PistaESC.MOR]
+- Senhorita Lúcia, você sabia que o seu pai morreu em um acidente nas Indústrias Meirelles?
+- Sim. Sei disso há um bom tempo.
+- E, mesmo assim, você continua frequentando essa casa?
+- Como o senhor disse, Inspetor, foi um acidente.
+- E não guarda mágoas?
+- O Dr. Meirelles foi muito bom para nós.
+
+
+----------------
+MARY - SALA DE ESTAR 
+
+- Melhor agora?
+- Muito melhor, docinho. O que quer de mim?
+- Preciso conversar com a senhora...
+- Senhorita, tolinho. Senhorita Mary.
+- Certo. Senhorita, então. \nSoube do desaparecimento do 'Olho de Odin'?
+- É claro. De uma maneira ou de outra, tudo acaba nos meus ouvidos.
+- Onde esteve durante a tarde?
+- Sou uma das suspeitas? \nQue divertido!
+- Estou apenas fazendo perguntas.
+- Cuidado. A curiosidade matou o gato.
+- Está me ameaçando, senhorita?
+- Não poderia fazê-lo mal, policial.\n Não do jeito que pensa, pelo menos.
+- Voltando ao caso, senhorita. \nOnde esteve durante a tarde?
+- No Quarto Azul, no segundo andar.\nDepois, perto das 17:00, vim para cá.
+- Alguém lhe viu lá?
+- Isso não é uma pergunta muito decorosa, policial.
+- Devo insistir que responda.
+- Infelizmente, estive sozinha por todo esse período.
+- Viu ou ouviu algo estranho?
+- Só os meus pensamentos.
+
+State: conheceuLucia
+- Encontrei Lúcia no Quarto Azul.
+- E não morreu de tédio? Está de parabéns, Inspetor.
+- Você a encontrou durante a tarde?
+- Ela passou pelo quarto, procurando aquele chapéu cafona.
+- Lúcia disse que é amiga de longa data do Dr. Meirelles.
+- 🔍 Bem, era o mínimo que ele poderia fazer por ela, imagino. [ PistaMAR.LUC ]
+- O que quer dizer com isso?
+- Achei que fosse um investigador. Se quer descobrir algo, investigue.
+
+Pista: PistaMAR.GEL
+- A Sra. Meirelles disse que você andou circulando por aí atrás de gelo.
+- Um drinque quente é que nem um beijo seco, Inspetor.
+- Você esteve na cozinha?
+- 🔍 Acho que sim...
+- O que tem aí nesse acho?
+- É uma casa grande, queridinho. 
+--> libera - PistaMAR.COZ
+
+----------------
+
+DR. MARCOS SANTOS - LABORATÓRIO 
+
+Liberou o cofre...
+"requiresClues": ["PistaLAB.PLA1"]
+
+- Esses são os planos da refinaria?
+- Acho que sim. Mas parece que há algo errado...
+- O quê?
+- 🔍 Eles estão incompletos. As especificações da torre de destilação atmosférica não estão aqui. [ PistaLAB.PLA2 ]
+- Quem era o responsável por esses planos?
+- 🔍 O Dr. Meirelles. 
+- Onde você esteve durante a tarde?
+- Passei boa parte da tarde aqui no laboratório, trabalhando.
+- Viu alguém durante esse período?
+- Somente a Carolina. Eu queria tomar chá gelado as 16:00, \nmas não sei o que houve...
+- Como assim?
+- Ela encheu o copo com gelo, mas o chá continuava quente. \nDeixei para lá.
+- Onde está o chá?
+- Deixei nos fundos do laboratório, perto dos livros.
+--> libera - PistaLAB.PLA2
+--> libera - Encontrei Odin...
+
+
+Achou o Olho de Odin [ PistaLAB.OLHO ]
+- Você sabe o que eu encontrei na sua xícara de chá?
+- Açúcar em excesso?
+- O 'Olho de Odin'.
+- Impossível!\nVocê precisa acreditar em mim,\n Inspetor. Não tenho nada a ver com esse roubo.
+- Seria o lugar mais estúpido que já vi para esconder um diamante, mesmo...
+- Obrigado.\nAcho.
+- Quem serviu o chá?
+- 🔍 Carolina. [ PistaLAB.CAR ]
+
+Descobre onde é a Refinaria [ PistaLAB.GRG ]
+- Sobre essa nova refinaria que vocês estão projetando...
+- Desculpe, Inspetor, mas o contrato está sobre segredo.
+- Pelas fotografias, ela vai ser construída em Rio Grande. Por que alguém gostaria de sumir com os planos?
+- 🔍 Espionagem industrial? Sabotagem? Irritar os militares? Pode escolher. [ PistaLAB.ESP ]
+- Quem tirou as fotografias?
+- 🔍 Eu não sei, mas a Sandra esteve aqui revelando algumas fotos.
+libera -- PistaLAB.ESP
+libera -- PistaSAN.REV 
+
+
+Fotografias...
+- São fotografias, mas ainda não sei o que significam.
+
+Depois que descobriu [ PistaJOG.RG ]
+- 🔍 É o General. Ele parece estar em Rio Grande, na região onde será construída a refinaria. Quem são essas pessoas e que negócios ele poderia ter lá? [ PistaLAB.GRG ]
+
+PistaLAB.GRG
+- Sabe algo sobre essas fotografias?
+- Não, Inspetor.
+
+-----------------------------------------------
+
+SALA DE JOGOS - GENERAL 
+
+- Está satisfeito, General?
+- Muito. Tem visto algum comunista?
+- Hã... não. E o senhor?
+- Ah, temos prisões cheias deles.
+- Imagino que tenham evidências sólidas contra os sujeitos.
+- O que são evidências?
+- Esquece... Onde esteve pela tarde?
+- Aqui, na Sala de Jogos, fumando.
+- Cigarros?
+- Charutos cubanos.
+- Hã... certo. Alguém pode confirmar isso?
+- Carolina esteve aqui para me trazer um drinque as 17:00.
+- Que drinque?
+- Era para ser um mojito, mas ela me trouxe uísque. \nQue mulher atrapalhada!
+- Lembra-se de mais alguma coisa?
+- Não. Mas se ver algum comunista, não esqueça de me avisar. \nPreciso fechar a minha cota mensal.
+
+
+
+requires -- PistaLAB.GRG
+- Olá de novo, General.
+- Tudo bem, rapaz? Achou algum comunista?
+- Ainda não. Preciso lhe perguntar uma coisa.
+- Pergunte, pergunte!
+- O que sabe sobre a nova refinaria que o Dr. Meirelles e o Dr. Marcos estão trabalhando?
+- Ah, isso é segredo de estado rapaz. Um segredo terrivelmente secreto. Não posso comentar.
+- Isso seria muito importante para a investigação.
+- Desculpe, Inspetor. Mas é assunto de segurança nacional. Não podemos confirmar que estamos construindo uma nova refinaria em Rio Grande.
+- Então, vocês realmente vão construir uma nova refinaria em Rio Grande? 
+- Diabos. Não deveria ter dito isso. \nVocê não vai espalhar isso por aí, não é?
+- É claro que não, General.
+- Ótimo. Não gostaria que terminasse seus dias como os outros comunistas.
+- Mas eu não sou comunista.
+- Meu caro, você é comunista se eu disser que é. 
+
+requires -- PistaESC.TER - 
+- General, encontrei uma foto sua em Rio Grande, que parece indicar que o terreno onde será construída a refinaria é seu.
+- Fotos comunistas, Inspetor.
+- Mas...
+- Fotos comunistas. É melhor esquecer isso.
+
+-------------------
+
+Carolina - Vários lugares...
+Ela fica perto da cozinha...
+
+PistaLAB.CAR
+- Olá, Carolina.
+- Inspetor.
+- Sabe o que encontrei no chá gelado que serviu para o Dr. Marcos?
+- Vodca?
+- Você serve vodca no chá?
+- Errei alguns drinques hoje e...
+- Não era vodca. Era o 'Olho de Odin'. 
+- O diamante?
+- Como se fosse um cubo de gelo.
+- Um gelo bem caro.
+- Nem me diga... Como o diamante foi parar lá?
+- Não tenho ideia, Inspetor. Apenas fiz o chá e peguei o gelo na geladeira.
+- Viu alguém entrando na cozinha?
+- Todo mundo vai na cozinha o tempo todo.
+- Então, poderia ter sido qualquer um?
+- Exato, Inspetor. 
+
+PistaESC.ACI
+- Você trabalha para o Dr. Meirelles há um bom tempo.
+- Desde os quinze anos, Inspetor.
+- Então, já viu de tudo nessa casa. Já conhecia Lúcia?
+- Ela frequenta a casa há muitos anos. 
+- O pai dela morreu em um acidente, não?
+- Já ouvi falar disso, mas não sei de nada, não senhor. 
+- E quem sabe?
+- O Dr. Meirelles. Sei que ele mantém 🔍 documentos sobre isso na sua escrivaninha no escritório. 
+-- libera pista PistaCAR.ESC
+-- liberal state servirJantar
+
+-------------------
+
+Quintal - Genésio 
+
+Meu nome é Zanko, Inspetor Zanko.
+Noite. Sou o Genésio, o faz tudo. \nMas pode me chamar de Genésio mesmo.
+O que você faz, exatamente?
+Conserto coisas. Pinto, serro e martelo. Também cuido do jardim e do carro do doutor.
+Soube do desaparecimento do 'Olho de Odin'?
+O tal diamante? Ouvi falar, mas nunca nem vi a coisa.
+Percebeu alguma movimentação estranha?
+Só vi os convidados, mas não entrei na casa hoje.
+
+
+
+Porão
+Ali fica o porão?
+Sim, mas ninguém pode entrar.
+Por que não?
+Porque é o meu local de trabalho e é um local perigoso, hã?
+
+----------------------------
+rever...
+
+Sra. Gertrudes Meirelles
+- Espero que esteja se sentindo melhor agora, senhora.
+- Bem melhor, garoto. Quem é você?
+- Sou o Inspetor Zanko. Estou investigando o que pode ter sido um roubo.
+- Não sei de roubo algum. Mal saio desse quarto. Quando preciso de alguma coisa, chamo a Carolina com o meu sino.
+- Que sino?
+- Ele está nas prateleiras. Mas o que quer, afinal? Veio trazer o meu chá?
+- Não, senhora. Viu alguém ou alguma coisa estranha hoje de tarde?
+- Todas as pessoas são estranhas depois de uma certa idade, garoto. Eu vi a senhorita Lúcia andando desbaratinada por aí atrás do seu chapéu.
+- Falou com mais alguém?
+- Vi a Mary circulando por aí que nem uma sirigaita. Ela disse que 🔍precisava de gelo para o seu drinque.
+- Falou com mais alguém?
+- Não falei, não. Estava muito frio para eu falar com quem quer que seja. E o meu chá?
+- Vou pedir para a Carolina.
+- Quem é Carolina?
+--- libera PistaMAR.GEL
+
+
+Descobri documentos Acidente [PistaESC.MOR]
+- Olá de novo, senhora Meirelles.
+- Quem diabos é você?
+- O Inspetor Zanko. Nos falamos um tempo atrás.
+- Nunca lhe vi em toda a minha vida.
+- A senhora sabe de alguma coisa sobre o acidente do pai da Lúcia?
+- Claro que sim, rapaz! O que acha que sou, uma desmiolada?
+- Nunca diria isso, senhora.
+- Bem, garoto, foi uma coisa horrível, isso eu posso lhe dizer. O coitado ficou todo amassado.
+- Amassado?
+- Um gerador de duas toneladas caiu sobre a sua cabeça. 
+- Terrível.
+- É, sim. Foi um prejuízo enorme. Era um encomenda importante, sabe?
+- E o pai da Lúcia?
+- Depois que virou pastel? Foi enterrado, não é? Tem certeza de que é um Inseptor?
+- Tenho sim, senhora. E a senhorita Lúcia?
+- Meu filho cuidou dela, é claro. Era o mínimo que poderia fazer. Pagou as contas, essas coisas.
+- Nunca houve nenhum ressentimento por causa disso?
+- Claro que não. Eram duas garotinhas felizes, posso lhe dizer.
+- Garotinhas?
+- Ela e sua irmã, é claro.
+- Quem é a irmã de Lúcia?
+- 🔍 Mary. [PistaROS.IRM]
+
+--------------------------------------
+SANDRA 
+- Melhor agora?
+- Graças a Deus. Estava ficando louca com esse silêncio
+- Quem é você
+- Sandra Boaventura. Produtora musical e ativista cultural.
+- Trabalha com artistas?
+- Músicos, normalmente. Todos muito glamourosos, performáticos e brilhantes.
+- Brilhantes como um diamante?
+- Dizem que os diamantes são eternos.
+- Eterno também é o tempo de prisão para ladrões.
+- Acha que roubei o 'Olho de Odin', Inspetor?
+- Não acho nada. Minha função é ter certeza.\nOnde esteve durante toda a tarde?
+- Aqui, tentando fazer essa maldita vitrola funcionar.
+- Alguém pode confirmar isso?
+- Lúcia e Mary estiveram por aqui por alguns momentos.\nNão vi mais ninguém.
+
+
+FOTOGRAFIAS
+- Você esteve no laboratório?
+- Quem lhe disse isso?
+- O Dr. Marcos me contou que esteve lá fazendo revelações.
+- Ah, é verdade...
+- Que tipo de fotografias?
+- Dos artistas que represento...
+- Tem certeza.
+- 🔍 Sim...
+PistaSAN.FOT 
+-- liberaPistaSandraFotografia
+
+Sandra alega que revelou fotografias dos artistas que representa. 

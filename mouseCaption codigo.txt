@@ -1,0 +1,42 @@
+
+
+			  
+			  
+			  
+		  // Atualiza mensagem se existir em messagesItems
+		  if (hotspot.messagesItems) {
+			console.log("messagesItems");
+			for (let i = 0; i < hotspot.messagesItems.length; i += 2) {
+				if (hotspot.messagesItems[i] === itemId) {
+					hotspot.description = hotspot.messagesItems[i + 1];
+					break;
+					}
+			}
+		  }
+
+// DESABILITADO POR ENQUANTO
+	// Se há Mouse Caption (Portas, por exemplo)
+	/*
+	if ( hotspot.mouseCaption != null ) {
+		img.addEventListener('mouseenter', () => {
+			let tooltip = document.createElement('div');
+			tooltip.textContent = hotspot.mouseCaption;
+			tooltip.style.position = 'absolute';
+			tooltip.style.background = 'black';
+			tooltip.style.color = 'white';
+			tooltip.style.padding = '4px 8px';
+			tooltip.style.borderRadius = '4px';
+			tooltip.style.whiteSpace = 'nowrap';
+			tooltip.style.zIndex = 9999;
+			// pega posição da imagem
+			let rect = img.getBoundingClientRect();
+			tooltip.style.top = window.scrollY + rect.top + hotspot.yCaption + 'px';
+			tooltip.style.left = window.scrollX + rect.right + hotspot.xCaption + 'px';
+			tooltip.classList.add('tooltip');
+			document.body.appendChild(tooltip);
+			img.addEventListener('mouseleave', () => {
+				tooltip.remove();
+				}, { once: true });
+		});	
+		}
+	*/

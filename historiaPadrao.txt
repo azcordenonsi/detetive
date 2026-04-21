@@ -1,0 +1,167 @@
+
+Quarto rosa - sininho da velhinha que ela usa para chamar Carolina.
+Com o isqueiro, acendo a sala de jantar, pego o frango e uso o sininho.
+com isso, Meirelles sai.
+
+Escritório
+
+1.Meirelles
+-- Fala Básica
+---- Pista Cofre 3 Chaves => PistaESC.3C
+---- Pista Roubo Tarde => PistaESC.RB
+2.Meirelles
+-- [Pista Cofre Vazio] - Zanko descobriu cofre vazio
+---- Pista Cofre Vazio => PistaESC.CF
+3.Meirelles
+-- [PistaLAB.OLHO] - Zanko achou o diamante
+---- Fala que continua investigando
+4.Meirelles
+-- [PistaLAB.GRG] - Zanko achou fotografias no Laboratório
+---- Refinaria sendo construída no terreno do General.
+---- Pista => PistaESC.TER
+5. Meirelles
+-- [PistaEST.LUC1] - Dr. Meirelles ajudou Lúcia. 
+---- Pai de Lúcia morreu num acidente.
+---- Pista => PistaESC.ACI
+6. Meirelles
+-- [PistaLAB.PLA2] - Falta parte dos planos.
+---- Meirelles não sabe onde estão os planos desaparecidos.
+---- Não quer dizer onde os planos serão construídos|Segredo.
+---- Pista => PistaESC.SEG
+
+Escrivaninha
+1. Escrivaninha
+-- Básico: nada. 
+2. Escrivaninha
+-- [PistaCAR.ACI] - descobriu que há documentos na escrivaninha 
+---- Meirelles: Não mexa aí. 
+---- Preciso tirá-lo daqui...
+3. Escrivaninha
+-- [Meirelles fora do Escritório]
+
+---- Pai de Lúcia morreu em um acidente nas indústrias Meirelles. 
+---- Pista => PistaESC.MOR
+
+---------------------------------
+
+Sala Estar 
+
+1. Mary
+-- Fala Básica 
+2. Mary
+-- [BloodyMary]: Taça(Cozinha) + Tomate(Jantar) + Vodca(Jantar) + [Gelo]
+---- Estive Quarto Azul. Não vi ninguém.
+---- conheceuMary = true
+3. Mary
+-- [conheceuLucia]
+---- Não gosta de Lúcia. Dr. Meirelles ajudou Lúcia. 
+---- Pista => PistaEST.LUC1 
+---- Filho do Dr. Meirelles morreu de Tuberculose 
+---- Pista => PistaEST.FIL
+
+---------------------------------
+
+Quarto Azul 
+
+1.Lúcia 
+-- Fala Básica
+2.Lúcia 
+-- [ChapéuMulher]: Gaiola(Porão) + Cookies(Rosa) + Coruja(Quintal)
+---- Não sei de nada. Recatada e simples.
+---- conheceuLucia = true
+3.Lúcia 
+-- [conheceuMary]
+---- Mary é mulher vulgar.
+---- Lúcia é amiga de longa data de Meirelles.
+---- Pista => PistaAZL.FAM
+4. Lúcia
+-- [PistaESC.MOR]
+---- Sabia da morte do pai por acidente nas indústrais Meirelles. Diz não guardar mágoas.
+5. Lúcia 
+-- [PistaROS.IRM]
+---- 
+---------------------------------
+
+Laboratório 
+
+1. Marcos 
+-- Fala Básica 
+2. Marcos 
+-- [CofreLaboratório]: LampVermelha(Laboratório) + Lampada(Laboratório) + TintaAzul|Verde|Amarelo(Porão)
+---- Acha as pista do Laboratório
+---- Pista => PistaLAB.PLA1
+3. Marcos 
+-- [PistaLAB.PLA1] - Achou os planos da refinaria
+---- Planos estão incompletos / responsável era Meirelles
+---- Pista => PistaLAB.PLA2
+---- Tomei chá gelado.
+4. Marcos 
+-- [PistaLAB.OLHO] - Achou o diamante 
+---- O chá foi sevido por Carolina.
+---- Pista => PistaLAB.CAR
+5. Marcos 
+-- [PistaESC.SEG] - Descobriu que a Refinaria vai ser construída em Rio Grande
+---- Muitas pessoas poderiam querer sumir com os planos.
+---- Pista => PistaLAB.ESP
+6. Marcos 
+-- [PistaLAB.GRG] - Foto do General em Rio Grande 
+---- Não sabe de nada.  
+
+Livros e Chá 
+-- [PistaLAB.PLA2] - se já achou os planos 
+---- espalha os livros e libera o chá 
+---- acha o Olho de Odin 
+---- Pista => PistaLAB.OLHO 
+
+Fotografias 
+-- Básico. 
+-- [PistaJOG.RG] - Já descobriu com General sobre a refinaria em Rio Grande 
+---- Foto do General em Rio Grande
+---- Pista => PistaLAB.GRG
+
+----------------------------------------
+
+Sala de Jogos 
+
+1. General 
+-- Fala Básica. 
+2. General 
+-- [Medalha]: Refri(Cozinha) + Tampinha(Cozinha) + TampinhaPrensada(Porão) + Cetim(Rosa)
+---- Não vi e não fiz nada.
+3. General 
+-- [PistaESC.SEG] - Descobriu que a refinaria está sob segredo
+---- Segredo de estado.
+---- Vai ser construída em Rio Grande.
+---- Pista => PistaJOG.RG
+4. General 
+-- [PistaLAB.GRG] - Fotos do General no Terreno
+---- Não é da sua conta.
+
+------------------------------------------
+
+x. Carolina 
+-- [PistaESC.ACI]
+---- Trabalha com o Dr. Meirelles há tempo.
+---- Sabe de Lúcia?
+---- Sim. Documentos estão no escritório.
+---- Pista => PistaCAR.ESC (Documentos sobre o acidente estão no Escritório)
+
+------------------------------------------
+
+Quarto Rosa 
+
+1. Gertrudes
+-- Fala Básica 
+---- Não vi nada.
+---- Libera procura pelo sinete nas prateleiras.
+-- [PistaESC.MOR]
+---- Mary é irmã de Lúcia.
+---- Pista => PistaROS.IRM
+
+------------------------------------------
+
+
+Gelo 
+- Balde(Porão) + Água(Cozinha) + MáquinaGelo(Porão)
+
+

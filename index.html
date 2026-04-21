@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detective Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<h2 id="sceneTitle"></h2>
+
+<div id="saveLoadMenu">
+  <h3>Gerenciar Slots</h3>
+  <div id="slotsContainer">
+    <button class="slotBtn" data-slot="1">Slot 1</button>
+    <button class="slotBtn" data-slot="2">Slot 2</button>
+    <button class="slotBtn" data-slot="3">Slot 3</button>
+  </div>
+</div>
+
+  
+  <div id="scene-transition"></div>
+  <div id="game-container">
+    <!-- Inventário (topo esquerdo) -->
+    <div id="inventory">
+    </div>
+    <div id="scene"></div>
+
+
+    <!-- Pistas (topo direito) -->
+    <div id="clues-icon">
+		<button id="clues-button" class="clues-btn"></button>
+	</div>
+
+    <!-- Modal de conversa / descrição -->
+	<div id="modal-container">
+		<img id="modal-img" src="" alt="" style="width: 80px; height: 80px; margin-right: 20px; float: left; display: none;">
+		<div id="modal-name"></div> <!-- novo elemento para o nome -->
+		<div id="modal-text" style="margin-top:10px;"></div>
+	</div>
+    <!-- Cena principal -->
+    
+	<script src="script.js"></script>
+	<script src="game.js"></script>
+	
+<div id="clues-modal-container">
+  <h2 id="clues-modal-title">Pistas</h2>
+  <div id="clues-modal-list-container">
+    <ul id="clues-modal-list"></ul>
+  </div>
+</div>
+  </div>
+</body>
+</html>

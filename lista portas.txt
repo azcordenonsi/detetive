@@ -1,0 +1,136 @@
+cenaEscritorio01
+
+porta
+- objeto: objPREscritorioINT
+- jump: goEscritoriotoHall
+
+
+-------------------------------
+
+cenaHall01
+
+porta ESQ
+- objeto: objPRHalltoCR01
+- jump:   goHalltoCR01
+
+porta DIR
+- objeto: objPRExterna
+- no jump
+
+portas
+
+- objeto: objPRSalaEstar
+- jump: goHalltoSalaEstar
+
+- objeto: objPREscritorio
+- jump: goHalltoEscritorio
+
+--------------------------------
+ 
+cenaCorredor01 - Corredor 01 
+
+porta ESQ
+- objeto: objPRCR01toCR02
+- jump:   goCR01toCR02
+
+porta DIR
+- objeto: objPRCR01toHall
+- jump:   goCR01toHall
+
+portas
+
+- objeto: objPRSalaMusica
+- jump: goCR01toSalaMusica
+
+- objeto: objPRSalaJantar
+- jump: goCR01toSalaJantar
+
+- objeto: objPRSalaJogos
+- jump: goCR01toSalaJogos
+
+----------------
+
+cenaCorredor02 - Corredor
+
+porta DIR
+- objeto: objPRCR02toCR01
+- jump:   goCR02toCR01
+
+portas
+
+- objeto: objPRCozinha
+- jump: goCR02toCozinha
+
+- objeto: objEscCR02toCR02And
+- jump: goEscCR02toCR02And
+
+------------------------
+
+cenaCozinha01 
+
+porta ESQ
+- objeto: objPRCoz01toCoz02
+- jump: goCoz01toCoz02
+
+porta 
+- objeto: objPRCozinhaINT
+- jump: goCozinhatoCR02
+
+-------------------------
+
+cenaCozinha02
+
+porta DIR
+- objeto: objPRCoz02toCoz01
+- jump: goCoz02toCoz01
+
+porta
+- objeto: objPRQuintal
+- jump: goCozinhatoQuintal
+
+---------------------------
+
+cenaPorao01
+
+porta DIR
+- objeto: objPRPor01toPor02
+- jump: goPor01toPor02
+
+saida
+- objeto: objSaidaPorao
+- jump: goPoraotoQuintal
+
+
+---------------------------
+
+cenaCorredor2Andar02
+
+DIREITA
+- objeto: objPRCR02AndtoCR01And
+- jump: goPRCR02AndtoCR01And
+
+- Escada
+- objeto: objEscCR02AndtoCR02
+- jump: goEscCR02AndtoCR02
+
+- Portas
+- objeto: objPRCR02AndtoQtoRosa
+- jump: goPRCR02AndtoQtoRosa
+
+----------------------------
+
+cenaCorredor2Andar01
+
+ESQUERDA
+- objeto: objPRCR01AndtoCR02And
+- jump: goPRCR01AndtoCR02And
+
+- Portas
+- objeto: objPRQtoAzul
+- jump: goCR02AndtoQtoAzul
+
+- objeto: objPRQtoLaranja
+- jump: goCR02AndtoQtoLaranja
+
+- objeto: objPRLaboratorio
+- jump: goCR02AndtoLaboratorio

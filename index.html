@@ -1,56 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detective Game</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
+    #sceneInicio {
+      position: relative;
+      width: 800px;
+      height: 500px;
+      overflow: hidden;
+      background: url("assets/fundoZanko.jpg") center center / cover no-repeat;
+      cursor: pointer;
+    }
+
+    #sceneTitle {
+      position: absolute;
+      left: 31%;
+      bottom: 19px;
+      transform: translateX(-40%);
+      margin: 0;
+      z-index: 5;
+      color: #f0d8b0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 16px;
+      font-weight: normal;
+      letter-spacing: 2px;
+      animation: piscar 1.2s infinite;
+      pointer-events: none;
+      text-shadow: 2px 2px 0 #000;
+      display: none;
+    }
+
+    #fadeOverlay {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 1; 
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    #chuva {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+      pointer-events: none;
+      display: none;
+    }
+
+    @keyframes piscar {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+  </style>
 </head>
 <body>
-<h2 id="sceneTitle"></h2>
-
-<div id="saveLoadMenu">
-  <h3>Gerenciar Slots</h3>
-  <div id="slotsContainer">
-    <button class="slotBtn" data-slot="1">Slot 1</button>
-    <button class="slotBtn" data-slot="2">Slot 2</button>
-    <button class="slotBtn" data-slot="3">Slot 3</button>
+  <div id="sceneInicio">
+    <h2 id="sceneTitle">Clique para iniciar...</h2>
+    <div id="fadeOverlay"></div>
+    <img id="chuva" src="assets/rain2.gif">
   </div>
-</div>
 
-  
-  <div id="scene-transition"></div>
-  <div id="game-container">
-    <!-- Inventário (topo esquerdo) -->
-    <div id="inventory">
-    </div>
-    <div id="scene"></div>
-
-
-    <!-- Pistas (topo direito) -->
-    <div id="clues-icon">
-		<button id="clues-button" class="clues-btn"></button>
-	</div>
-
-    <!-- Modal de conversa / descrição -->
-	<div id="modal-container">
-		<img id="modal-img" src="" alt="" style="width: 80px; height: 80px; margin-right: 20px; float: left; display: none;">
-		<div id="modal-name"></div> <!-- novo elemento para o nome -->
-		<div id="modal-text" style="margin-top:10px;"></div>
-	</div>
-    <!-- Cena principal -->
-    
-	<script src="script.js"></script>
-	<script src="game.js"></script>
+  <script>
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 	
-<div id="clues-modal-container">
-  <h2 id="clues-modal-title">Pistas</h2>
-  <div id="clues-modal-list-container">
-    <ul id="clues-modal-list"></ul>
-  </div>
-</div>
-  </div>
+	function fadeOutCena(duracao = 1000) {
+  return new Promise(resolve => {
+    const fade = document.getElementById("fadeOverlay");
+    let inicio = null;
+
+    function animar(timestamp) {
+      if (!inicio) inicio = timestamp;
+      const progresso = Math.min((timestamp - inicio) / duracao, 1);
+
+      fade.style.opacity = progresso;
+
+      if (progresso < 1) {
+        requestAnimationFrame(animar);
+      } else {
+        resolve();
+      }
+    }
+
+    requestAnimationFrame(animar);
+  });
+}
+
+    function fadeInCena(duracao = 1500) {
+      return new Promise(resolve => {
+        const fade = document.getElementById("fadeOverlay");
+        let inicio = null;
+
+        function animar(timestamp) {
+          if (!inicio) inicio = timestamp;
+          const progresso = Math.min((timestamp - inicio) / duracao, 1);
+
+          fade.style.opacity = 1 - progresso;
+
+          if (progresso < 1) {
+            requestAnimationFrame(animar);
+          } else {
+            fade.style.opacity = 0;
+            resolve();
+          }
+        }
+
+        requestAnimationFrame(animar);
+      });
+    }
+
+    async function iniciarTela() {
+      const scene = document.getElementById("sceneInicio");
+      const title = document.getElementById("sceneTitle");
+      const chuva = document.getElementById("chuva");
+      const fade = document.getElementById("fadeOverlay");
+
+      const tempoTelaInicial = 3000;
+
+	  // 🔥 FADE IN DO FUNDO ZANKO
+	  await fadeInCena(1800);
+      // mostra fundoZanko.jpg por 3 segundos
+      await sleep(tempoTelaInicial);
+
+	  // 🔥 FADE-OUT (escurece tudo)
+      await fadeOutCena(1000);
+      
+	  // prepara o fade preto
+      fade.style.opacity = 1;
+
+      // troca o fundo
+      scene.style.background = 'url("assets/fundoInicio.jpg") center center / cover no-repeat';
+      chuva.style.display = "block";
+
+      // faz o fade para revelar a segunda tela
+      await fadeInCena(1500);
+
+      title.style.display = "block";
+
+      document.addEventListener("click", () => {
+        window.location.href = "animacao.html";
+      }, { once: true });
+    }
+
+    window.addEventListener("load", iniciarTela);
+  </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,365 +7,512 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+    }
+
+    #sceneWrapper {
+      width: min(800px, 100vw, calc(100vh * 800 / 500));
+      aspect-ratio: 800 / 500;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #sceneParalax {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 800px;
+      height: 500px;
+      transform-origin: top left;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #sceneTitle {
+      display: none;
+    }
+
+    #fadeOverlay {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 1;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    #bg1,
+    #bg2 {
+      position: absolute;
+      top: 0;
+      height: 500px;
+      width: 2667px;
+      max-width: none;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #chuva {
+      position: absolute;
+      inset: 0;
+      width: 800px;
+      height: 500px;
+      object-fit: cover;
+      z-index: 5;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #fuscaAnimadoDIR {
+      position: absolute;
+      z-index: 20;
+      pointer-events: none;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+    }
+
+#modal-container {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  min-height: 110px;
+  box-sizing: border-box;
+  padding: 14px 18px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: black;
+  border-radius: 5px;
+  border: 2px solid white;
+  overflow-y: auto;
+  font-size: 16px;
+  align-items: center;
+  z-index: 900;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  font-family: 'Share Tech Mono', monospace; 
+}
+
+    #modal-img {
+      width: 80px !important;
+      height: 80px !important;
+      margin-right: 20px !important;
+      float: left;
+      display: none;
+      object-fit: cover;
+    }
+
+    #modal-name {
+      font-size: 18px;
+      margin-bottom: 8px;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    #modal-text {
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.4;
+      white-space: pre-line;
+      text-shadow: 1px 1px 0 #000;
+    }
+  </style>
 </head>
 <body>
-<h2 id="sceneTitle"></h2>
-  
-  <div id="sceneParalax">
-  <div id="modal-container">
-		<img id="modal-img" src="" alt="" style="width: 80px; height: 80px; margin-right: 20px; float: left; display: none;">
-		<div id="modal-name"></div> <!-- novo elemento para o nome -->
-		<div id="modal-text" style="margin-top:10px;"></div>
-	</div>
-  <div id="fadeOverlay"></div>
-  <img id="bg1" src="assets/fundoParalax.jpg" alt="">
-  <img id="bg2" src="assets/fundoParalax.jpg" alt="">
-  <div id="fuscaAnimadoDIR"></div>
-  <img id="chuva" src="assets/rain2.gif">
-</div>
-</div>
+  <h2 id="sceneTitle"></h2>
 
+  <div id="sceneWrapper">
+    <div id="sceneParalax">
+      <div id="modal-container">
+        <img id="modal-img" src="" alt="">
+        <div id="modal-name"></div>
+        <div id="modal-text"></div>
+      </div>
 
-<script>
+      <div id="fadeOverlay"></div>
+      <img id="bg1" src="assets/fundoParalax.jpg" alt="">
+      <img id="bg2" src="assets/fundoParalax.jpg" alt="">
+      <div id="fuscaAnimadoDIR"></div>
+      <img id="chuva" src="assets/rain2.gif" alt="">
+    </div>
+  </div>
 
+  <script>
+    function ajustarEscalaCena() {
+      const wrapper = document.getElementById("sceneWrapper");
+      const scene = document.getElementById("sceneParalax");
 
-function iniciarParallax() {
-  const bg1 = document.getElementById("bg1");
-  const bg2 = document.getElementById("bg2");
+      const larguraBase = 800;
+      const alturaBase = 500;
 
-  const larguraFundo = 2667;
-  const velocidade = 2;
+      const escalaX = wrapper.clientWidth / larguraBase;
+      const escalaY = wrapper.clientHeight / alturaBase;
+      const escala = Math.min(escalaX, escalaY);
 
-  let x1 = 0;
-  let x2 = -larguraFundo;
+      scene.style.transform = `scale(${escala})`;
+    }
 
-  function animar() {
-    x1 -= velocidade;
-    x2 -= velocidade;
+    function iniciarParallax() {
+      const bg1 = document.getElementById("bg1");
+      const bg2 = document.getElementById("bg2");
 
-	if (x1 <= -larguraFundo) {
-		x1 = x2 + larguraFundo;
-	}
+      const larguraFundo = 2667;
+      const velocidade = 2;
 
-	if (x2 <= -larguraFundo) {
-		x2 = x1 + larguraFundo;
-	}
+      let x1 = 0;
+      let x2 = -larguraFundo;
 
-    bg1.style.left = `${x1}px`;
-    bg2.style.left = `${x2}px`;
+      function animar() {
+        x1 -= velocidade;
+        x2 -= velocidade;
 
-    requestAnimationFrame(animar);
-  }
+        if (x1 <= -larguraFundo) {
+          x1 = x2 + larguraFundo;
+        }
 
-  animar();
-}
+        if (x2 <= -larguraFundo) {
+          x2 = x1 + larguraFundo;
+        }
 
-let intervaloFusca = null;
-let dialogoAtivo = false;
+        bg1.style.left = `${x1}px`;
+        bg2.style.left = `${x2}px`;
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function iniciarAnimacaoSpriteFusca() {
-  const fusca = document.getElementById("fuscaAnimadoDIR");
-
-  const frameWidth = 334;
-  const frameHeight = 168;
-  const totalFrames = 10;          // ajuste para a tua sprite sheet
-  const frameDuration = 100;      // tempo de cada frame
-  const escala = 1;               // pode mudar se quiser ampliar
-
-  let frameAtual = 0;
-
-  fusca.style.width = `${frameWidth * escala}px`;
-  fusca.style.height = `${frameHeight * escala}px`;
-  fusca.style.backgroundSize = `${frameWidth * totalFrames * escala}px ${frameHeight * escala}px`;
-
-  pararAnimacaoSpriteFusca();
-
-  function atualizarFrame() {
-    const posX = -(frameAtual * frameWidth * escala);
-    fusca.style.backgroundPosition = `${posX}px 0px`;
-    frameAtual = (frameAtual + 1) % totalFrames;
-  }
-
-  atualizarFrame();
-  intervaloFusca = setInterval(atualizarFrame, frameDuration);
-}
-
-function pararAnimacaoSpriteFusca() {
-  if (intervaloFusca !== null) {
-    clearInterval(intervaloFusca);
-    intervaloFusca = null;
-  }
-}
-
-function fadeInCena(duracao = 3000) {
-  return new Promise(resolve => {
-    const fade = document.getElementById("fadeOverlay");
-    let inicio = null;
-
-    function animar(timestamp) {
-      if (!inicio) inicio = timestamp;
-      const progresso = Math.min((timestamp - inicio) / duracao, 1);
-
-      fade.style.opacity = 1 - progresso;
-
-      if (progresso < 1) {
         requestAnimationFrame(animar);
-      } else {
-        fade.style.opacity = 0;
-        resolve();
+      }
+
+      animar();
+    }
+
+    let intervaloFusca = null;
+    let dialogoAtivo = false;
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function iniciarAnimacaoSpriteFusca() {
+      const fusca = document.getElementById("fuscaAnimadoDIR");
+
+      const frameWidth = 334;
+      const frameHeight = 168;
+      const totalFrames = 10;
+      const frameDuration = 100;
+      const escala = 1;
+
+      let frameAtual = 0;
+
+      fusca.style.width = `${frameWidth * escala}px`;
+      fusca.style.height = `${frameHeight * escala}px`;
+      fusca.style.backgroundSize = `${frameWidth * totalFrames * escala}px ${frameHeight * escala}px`;
+
+      pararAnimacaoSpriteFusca();
+
+      function atualizarFrame() {
+        const posX = -(frameAtual * frameWidth * escala);
+        fusca.style.backgroundPosition = `${posX}px 0px`;
+        frameAtual = (frameAtual + 1) % totalFrames;
+      }
+
+      atualizarFrame();
+      intervaloFusca = setInterval(atualizarFrame, frameDuration);
+    }
+
+    function pararAnimacaoSpriteFusca() {
+      if (intervaloFusca !== null) {
+        clearInterval(intervaloFusca);
+        intervaloFusca = null;
       }
     }
 
-    fade.style.opacity = 1;
-    requestAnimationFrame(animar);
-  });
-}
+    function fadeInCena(duracao = 3000) {
+      return new Promise(resolve => {
+        const fade = document.getElementById("fadeOverlay");
+        let inicio = null;
 
-function falarSequencial(listaFalas, nome = "Inspetor Zanko", imagem = "assets/zankoPH.png", cor = "rgb(255,200,150)") {
-  return new Promise(resolve => {
-    const modal = document.getElementById("modal-container");
-    const modalImg = document.getElementById("modal-img");
-    const modalName = document.getElementById("modal-name");
-    const modalText = document.getElementById("modal-text");
+        function animar(timestamp) {
+          if (!inicio) inicio = timestamp;
+          const progresso = Math.min((timestamp - inicio) / duracao, 1);
 
-    let indice = 0;
-    dialogoAtivo = true;
+          fade.style.opacity = 1 - progresso;
 
-    function renderizar() {
-      modalName.innerText = nome;
-      modalText.innerText = listaFalas[indice];
-      modalName.style.color = cor;
-      modalText.style.color = cor;
-      modalImg.src = imagem;
-      modalImg.style.display = "block";
-      modal.style.display = "block";
-    }
-
-    function avancar() {
-      if (!dialogoAtivo) return;
-
-      indice++;
-
-      if (indice >= listaFalas.length) {
-        dialogoAtivo = false;
-        modal.style.display = "none";
-        document.removeEventListener("click", avancar);
-        resolve();
-        return;
-      }
-
-      renderizar();
-    }
-
-    renderizar();
-
-    setTimeout(() => {
-      document.addEventListener("click", avancar);
-    }, 200);
-  });
-}
-
-function falarSequencial2(listaFalas, nome = "Andre Zanki Cordenonsi", imagem = "assets/AndrePH.png", cor = "rgb(239, 127, 133)") {
-  return new Promise(resolve => {
-    const modal = document.getElementById("modal-container");
-    const modalImg = document.getElementById("modal-img");
-    const modalName = document.getElementById("modal-name");
-    const modalText = document.getElementById("modal-text");
-
-    let indice = 0;
-    dialogoAtivo = true;
-
-    function renderizar() {
-      modalName.innerText = nome;
-      modalText.innerText = listaFalas[indice];
-      modalName.style.color = cor;
-      modalText.style.color = cor;
-      modalImg.src = imagem;
-      modalImg.style.display = "block";
-      modal.style.display = "block";
-    }
-
-    function avancar() {
-      if (!dialogoAtivo) return;
-
-      indice++;
-
-      if (indice >= listaFalas.length) {
-        dialogoAtivo = false;
-        modal.style.display = "none";
-        document.removeEventListener("click", avancar);
-        resolve();
-        return;
-      }
-
-      renderizar();
-    }
-
-    renderizar();
-
-    setTimeout(() => {
-      document.addEventListener("click", avancar);
-    }, 200);
-  });
-}
-
-function moverFuscaComAceleracao({
-  xInicial,
-  xFinal,
-  top = 290,
-  velocidadeInicial = 2,
-  velocidadeMaxima = 10,
-  aceleracao = 0.15,
-  desacelerarNoFinal = false
-}) {
-  return new Promise(resolve => {
-    const fusca = document.getElementById("fuscaAnimadoDIR");
-
-    let x = xInicial;
-    let velocidade = velocidadeInicial;
-
-    fusca.style.top = `${top}px`;
-    fusca.style.left = `${Math.round(x)}px`;
-
-    function animar() {
-      const distanciaRestante = xFinal - x;
-
-      if (desacelerarNoFinal) {
-        const distanciaAbs = Math.abs(distanciaRestante);
-
-        if (distanciaAbs < 250) {
-          velocidade = Math.max(1.2, velocidade * 0.97);
-        } else {
-          velocidade = Math.min(velocidade + aceleracao, velocidadeMaxima);
+          if (progresso < 1) {
+            requestAnimationFrame(animar);
+          } else {
+            fade.style.opacity = 0;
+            resolve();
+          }
         }
-      } else {
-        velocidade = Math.min(velocidade + aceleracao, velocidadeMaxima);
-      }
 
-      if (x < xFinal) {
-        x += velocidade;
-        if (x >= xFinal) {
-          x = xFinal;
-        }
-      } else {
-        x -= velocidade;
-        if (x <= xFinal) {
-          x = xFinal;
-        }
-      }
-
-      fusca.style.left = `${Math.round(x)}px`;
-
-      if (x === xFinal) {
-        resolve();
-        return;
-      }
-
-      requestAnimationFrame(animar);
-    }
-
-    requestAnimationFrame(animar);
-  });
-}
-
-async function cenaFuscaZanko() {
-  iniciarParallax();
-  const fusca = document.getElementById("fuscaAnimadoDIR");
-
-  const larguraTela = 800;
-  const larguraFusca = 334;
-  const centroX = Math.round((larguraTela) / 2);
-
-  const foraEsquerda = -larguraFusca - 20;
-  const foraDireita = 800 + larguraFusca;
-
-  iniciarAnimacaoSpriteFusca();
-
-  // começa escondido à direita
-  fusca.style.left = `${foraEsquerda}px`;
-  fusca.style.top = "290px";
-
-  // fade inicial
-  await fadeInCena(1500);
-
-  // entra pela direita, acelera e desacelera até parar no centro
-  await moverFuscaComAceleracao({
-    xInicial: foraEsquerda,
-	xFinal: centroX,
-    top: 290,
-    velocidadeInicial: 1.5,
-    velocidadeMaxima: 7,
-    aceleracao: 0.10,
-    desacelerarNoFinal: true
-  });
-
-const acertos = Number(sessionStorage.getItem("acertosCulpados"));
-
-if ( acertos >= 8 ) 
-	await falarSequencial([
-	`O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,"Esse foi um belo resultado. \nVocê tem jeito para detetive.", "Até o próximo caso."
-	]);
-if ( acertos >= 6 && acertos <=7 ) 
-	await falarSequencial([
-	`O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,"Esse foi um bom resultado, mas há espaço para melhoria.", "Até o próximo caso."
-	]);
-if ( acertos >= 3 && acertos <=5 ) 
-	await falarSequencial([
-	`O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,"É um resultado sofrível. Acho melhor voltar para a Academia da Polícia.", "Até o próximo caso."
-	]);
-if ( acertos <=2 ) 
-	await falarSequencial([
-	`O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,"Isso é um verdadeiro desastre. \nVocê acaba de ser rebaixado para Auxiliar.", "Acho que você não terá um próximo caso."
-	]);		
-  // sai acelerando para a esquerda
-  await moverFuscaComAceleracao({
-    xInicial: centroX,
-	xFinal: foraDireita,
-    top: 290,
-    velocidadeInicial: 2,
-    velocidadeMaxima: 10,
-    aceleracao: 0.15,
-    desacelerarNoFinal: false
-  });
-  
-  await falarSequencial2([
-	"Esse jogo foi baseado nos personagens da série literária \nInspetor Zanko, de A.Z.Cordenonsi.","Programação: A.Z.Cordenonsi e 18 IAs diferentes.", "Arte: A.Z.Cordenonsi e 7312 sites de assets livres.", "Áudio: Não tem.", "História: A.Z.Cordenonsi"
-	]);
-	
-  await fadeOutCena(1000);
-
-  
-}
-
-function fadeOutCena(duracao = 1000) {
-  return new Promise(resolve => {
-    const fade = document.getElementById("fadeOverlay");
-    let inicio = null;
-
-    function animar(timestamp) {
-      if (!inicio) inicio = timestamp;
-      const progresso = Math.min((timestamp - inicio) / duracao, 1);
-
-      fade.style.opacity = progresso;
-
-      if (progresso < 1) {
+        fade.style.opacity = 1;
         requestAnimationFrame(animar);
-      } else {
-        resolve();
-      }
+      });
     }
 
-    requestAnimationFrame(animar);
-  });
-}
+    function fadeOutCena(duracao = 1000) {
+      return new Promise(resolve => {
+        const fade = document.getElementById("fadeOverlay");
+        let inicio = null;
 
-window.addEventListener("load", () => {
-  cenaFuscaZanko();
-});
-</script>
+        function animar(timestamp) {
+          if (!inicio) inicio = timestamp;
+          const progresso = Math.min((timestamp - inicio) / duracao, 1);
+
+          fade.style.opacity = progresso;
+
+          if (progresso < 1) {
+            requestAnimationFrame(animar);
+          } else {
+            resolve();
+          }
+        }
+
+        requestAnimationFrame(animar);
+      });
+    }
+
+    function falarSequencial(listaFalas, nome = "Inspetor Zanko", imagem = "assets/zankoPH.png", cor = "rgb(255,200,150)") {
+      return new Promise(resolve => {
+        const modal = document.getElementById("modal-container");
+        const modalImg = document.getElementById("modal-img");
+        const modalName = document.getElementById("modal-name");
+        const modalText = document.getElementById("modal-text");
+
+        let indice = 0;
+        dialogoAtivo = true;
+
+        function renderizar() {
+          modalName.innerText = nome;
+          modalText.innerText = listaFalas[indice];
+          modalName.style.color = cor;
+          modalText.style.color = cor;
+          modalImg.src = imagem;
+          modalImg.style.display = "block";
+          modal.style.display = "block";
+        }
+
+        function avancar() {
+          if (!dialogoAtivo) return;
+
+          indice++;
+
+          if (indice >= listaFalas.length) {
+            dialogoAtivo = false;
+            modal.style.display = "none";
+            document.removeEventListener("pointerdown", avancar);
+            resolve();
+            return;
+          }
+
+          renderizar();
+        }
+
+        renderizar();
+
+        setTimeout(() => {
+          document.addEventListener("pointerdown", avancar);
+        }, 200);
+      });
+    }
+
+    function falarSequencial2(listaFalas, nome = "Andre Zanki Cordenonsi", imagem = "assets/AndrePH.png", cor = "rgb(239, 127, 133)") {
+      return new Promise(resolve => {
+        const modal = document.getElementById("modal-container");
+        const modalImg = document.getElementById("modal-img");
+        const modalName = document.getElementById("modal-name");
+        const modalText = document.getElementById("modal-text");
+
+        let indice = 0;
+        dialogoAtivo = true;
+
+        function renderizar() {
+          modalName.innerText = nome;
+          modalText.innerText = listaFalas[indice];
+          modalName.style.color = cor;
+          modalText.style.color = cor;
+          modalImg.src = imagem;
+          modalImg.style.display = "block";
+          modal.style.display = "block";
+        }
+
+        function avancar() {
+          if (!dialogoAtivo) return;
+
+          indice++;
+
+          if (indice >= listaFalas.length) {
+            dialogoAtivo = false;
+            modal.style.display = "none";
+            document.removeEventListener("pointerdown", avancar);
+            resolve();
+            return;
+          }
+
+          renderizar();
+        }
+
+        renderizar();
+
+        setTimeout(() => {
+          document.addEventListener("pointerdown", avancar);
+        }, 200);
+      });
+    }
+
+    function moverFuscaComAceleracao({
+      xInicial,
+      xFinal,
+      top = 290,
+      velocidadeInicial = 2,
+      velocidadeMaxima = 10,
+      aceleracao = 0.15,
+      desacelerarNoFinal = false
+    }) {
+      return new Promise(resolve => {
+        const fusca = document.getElementById("fuscaAnimadoDIR");
+
+        let x = xInicial;
+        let velocidade = velocidadeInicial;
+
+        fusca.style.top = `${top}px`;
+        fusca.style.left = `${Math.round(x)}px`;
+
+        function animar() {
+          const distanciaRestante = xFinal - x;
+
+          if (desacelerarNoFinal) {
+            const distanciaAbs = Math.abs(distanciaRestante);
+
+            if (distanciaAbs < 250) {
+              velocidade = Math.max(1.2, velocidade * 0.97);
+            } else {
+              velocidade = Math.min(velocidade + aceleracao, velocidadeMaxima);
+            }
+          } else {
+            velocidade = Math.min(velocidade + aceleracao, velocidadeMaxima);
+          }
+
+          if (x < xFinal) {
+            x += velocidade;
+            if (x >= xFinal) {
+              x = xFinal;
+            }
+          } else {
+            x -= velocidade;
+            if (x <= xFinal) {
+              x = xFinal;
+            }
+          }
+
+          fusca.style.left = `${Math.round(x)}px`;
+
+          if (x === xFinal) {
+            resolve();
+            return;
+          }
+
+          requestAnimationFrame(animar);
+        }
+
+        requestAnimationFrame(animar);
+      });
+    }
+
+    async function cenaFuscaZanko() {
+      ajustarEscalaCena();
+      iniciarParallax();
+
+      const fusca = document.getElementById("fuscaAnimadoDIR");
+
+      const larguraTela = 800;
+      const larguraFusca = 334;
+      const centroX = Math.round((larguraTela) / 2);
+
+      const foraEsquerda = -larguraFusca - 20;
+      const foraDireita = 800 + larguraFusca;
+
+      iniciarAnimacaoSpriteFusca();
+
+      fusca.style.left = `${foraEsquerda}px`;
+      fusca.style.top = "290px";
+
+      await fadeInCena(1500);
+
+      await moverFuscaComAceleracao({
+        xInicial: foraEsquerda,
+        xFinal: centroX,
+        top: 290,
+        velocidadeInicial: 1.5,
+        velocidadeMaxima: 7,
+        aceleracao: 0.10,
+        desacelerarNoFinal: true
+      });
+
+      const acertos = Number(sessionStorage.getItem("acertosCulpados"));
+
+      if (acertos >= 8)
+        await falarSequencial([
+          `O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,
+          "Esse foi um belo resultado. \nVocê tem jeito para detetive.",
+          "Até o próximo caso."
+        ]);
+
+      if (acertos >= 6 && acertos <= 7)
+        await falarSequencial([
+          `O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,
+          "Esse foi um bom resultado, mas há espaço para melhoria.",
+          "Até o próximo caso."
+        ]);
+
+      if (acertos >= 3 && acertos <= 5)
+        await falarSequencial([
+          `O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,
+          "É um resultado sofrível. Acho melhor voltar para a Academia da Polícia.",
+          "Até o próximo caso."
+        ]);
+
+      if (acertos <= 2)
+        await falarSequencial([
+          `O caso acabou e você descobriu o status correto de ${acertos} suspeitos.`,
+          "Isso é um verdadeiro desastre. \nVocê acaba de ser rebaixado para Auxiliar.",
+          "Acho que você não terá um próximo caso."
+        ]);
+
+      await moverFuscaComAceleracao({
+        xInicial: centroX,
+        xFinal: foraDireita,
+        top: 290,
+        velocidadeInicial: 2,
+        velocidadeMaxima: 10,
+        aceleracao: 0.15,
+        desacelerarNoFinal: false
+      });
+
+      await falarSequencial2([
+        "Esse jogo foi baseado nos personagens da série literária \nInspetor Zanko, de A.Z.Cordenonsi.",
+        "Programação: A.Z.Cordenonsi e o GPTo.",
+        "Arte: A.Z.Cordenonsi e 7.312 sites de assets livres.",
+        "Áudio: Não tem.",
+        "História: A.Z.Cordenonsi"
+      ]);
+
+      await fadeOutCena(1000);
+    }
+
+    window.addEventListener("load", () => {
+      ajustarEscalaCena();
+      cenaFuscaZanko();
+    });
+
+    window.addEventListener("resize", ajustarEscalaCena);
+  </script>
 </body>
 </html>
